@@ -2,6 +2,7 @@ package iisi.parses
 
 import iisi.parsers.DescriptionFileException
 import iisi.parsers.DescriptionParser
+import iisi.polynomial.PolynomialTerm
 import spock.lang.Specification
 
 class DescriptionParserSpec extends Specification {
@@ -12,7 +13,7 @@ class DescriptionParserSpec extends Specification {
         when:
         Integer degree = new DescriptionParser().getPolynomialDegree(descriptionFile)
         then:
-        degree == 15
+        degree == 2
     }
 
     def "Should return polynomial degree from description file" () {
@@ -21,7 +22,7 @@ class DescriptionParserSpec extends Specification {
         when:
         Integer degree = new DescriptionParser().getPolynomialDimension(descriptionFile)
         then:
-        degree == 10
+        degree == 2
     }
 
     def "Should throw exception when reading polynomial degree from description file" () {
@@ -46,13 +47,14 @@ class DescriptionParserSpec extends Specification {
     }
 
     def "test" () {
-        //TODO:finish unittest for obtaining coefficients and components!!!!
+        //TODO:f need to fix assianing variable exponents
         given:
         File descriptionFile = new File(getClass().getClassLoader().getResource("description.txt").getPath())
         when:
-        new DescriptionParser().getComponentsFromFile(descriptionFile)
+        List<PolynomialTerm> polynomialTerms = new DescriptionParser().getPolynomialTerms(descriptionFile)
         then:
-        2 == 2
+        polynomialTerms.size()==6
+        print("dupa")
 
     }
 }
